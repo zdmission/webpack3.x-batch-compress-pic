@@ -17,7 +17,7 @@ fileChunck.prototype.apply = function (compiler) {
     const delFileNameArr = this.options.del ? this.options.del : []; // 删除指定文件
     const copyArr = this.options.copy ? this.options.copy : []; // 移动指定文件
     compiler.plugin('emit', function (compilation, callback) {
-        Object.keys(compilation.assets).filter((filePath) => {
+        Object.keys(compilation.assets).filter(filePath => {
             /* 删除指定文件 */
             if (delFileNameArr.length > 0) {
                 const targetFilePathArr = filePath.split('?')[0].split('/'),
@@ -29,13 +29,15 @@ fileChunck.prototype.apply = function (compiler) {
 
             /* 复制指定文件 */
             if (copyArr.length > 0) {
-                copyArr.filter((obj) => {
+                copyArr.filter(obj => {
                     if (obj.from.indexOf('.html') != -1) {
                         if (filePath === obj.from) {
                             compilation.assets[obj.to] = compilation.assets[filePath];
                         }
                     } else {
-                        if (filePath.indexOf('.html') != -1 && filePath.indexOf(obj.from) != -1) {
+                        if (
+                            filePath.indexOf('.html') != -1 && filePath.indexOf(obj.from) != -1
+                        ) {
                             const targetStr = obj.to + filePath.replace(obj.from, '');
                             compilation.assets[targetStr] = compilation.assets[filePath];
                         }
@@ -44,7 +46,7 @@ fileChunck.prototype.apply = function (compiler) {
                 });
             }
 
-            return (filePath);
+            return filePath;
         });
         callback();
     });
@@ -98,7 +100,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new fileChunck({del: ['main.js']}),
-        new CleanWebpackPlugin({cleanAfterEveryBuildPatterns: ['dist/static/images']})
+        new fileChunck({ del: ['main.js'] }),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['static/images']
+        })
     ]
 };
