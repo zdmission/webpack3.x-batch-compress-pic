@@ -1,5 +1,6 @@
 const path = require('path');
 const glob = require('glob');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // 保存图片数据
 const arrImg = [];
@@ -97,6 +98,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new fileChunck({del: ['main.js']})
+        new fileChunck({del: ['main.js']}),
+        new CleanWebpackPlugin({cleanAfterEveryBuildPatterns: ['dist/static/images']})
     ]
 };

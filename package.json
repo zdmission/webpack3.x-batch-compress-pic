@@ -6,7 +6,11 @@
     "imgmin": "webpack --config ./webpack.config-imgmin.js --color --progress"
   },
   "license": "ISC",
-  "keywords": ["webpack", "compress", "imgmin"],
+  "keywords": [
+    "webpack",
+    "compress",
+    "imgmin"
+  ],
   "author": {
     "name": "zdmission",
     "emial": "1051444638@qq.com"
@@ -20,6 +24,7 @@
   },
   "homepage": "https://github.com/zdmission/webpack3.x-batch-compress-pic",
   "devDependencies": {
+    "clean-webpack-plugin": "^2.0.1",
     "file-loader": "2.0.0",
     "glob": "^7.1.3",
     "image-webpack-loader": "^4.6.0",
